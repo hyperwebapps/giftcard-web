@@ -1,5 +1,14 @@
 import { ethers } from 'ethers'
 
+enum Store {
+  Apple,
+  GreenCard,
+  GooglePlay,
+  Otto,
+  Roblox,
+  Spotify
+}
+
 export interface IMetamaskReducerState {
   provider?: ethers.providers.Web3Provider
   account: string
@@ -9,6 +18,13 @@ export interface IMetamaskReducerState {
   connect: () => void
   updateTokenBalance: () => void
   disconnect: () => void
+}
+
+export interface IGiftcard {
+  id: number
+  imageHash: string
+  price: number
+  store: Store
 }
 
 export interface IErrorReducerState {

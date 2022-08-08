@@ -9,6 +9,7 @@ export interface IDrawerAppBarLink {
 }
 
 export interface IStoreGiftCard {
+  id: number
   imageHash: string
   text: string
   price: string

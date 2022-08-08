@@ -20,14 +20,14 @@ export const convertToHex = (chainId: number): string => {
 }
 
 export const isSufficientBalance = (balance: string, tokenAmount: string): boolean => {
-  return parseInt(balance) > parseInt(tokenAmount) / 1e9
+  return parseInt(balance) > parseInt(tokenAmount) / 1e15
 }
 
 export const chains = [
   {
     chainName: 'AVAX LT Network',
     chainId: convertToHex(43112),
-    nativeCurrency: { name: 'AVAX', decimals: 18, symbol: 'AVAX' },
+    nativeCurrency: { name: 'AVAX', decimals: 0, symbol: 'AVAX' },
     rpcUrls: ['http://127.0.0.1:9650/ext/bc/C/rpc']
   }
 ]

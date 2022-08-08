@@ -1,5 +1,5 @@
 import { Box, Stack } from '@mui/material'
-import { ethers } from 'ethers'
+import { BigNumber, ethers } from 'ethers'
 import React, { useState } from 'react'
 import useMetamask from '../context/metamask/MetamaskContext'
 import { contractAddress, isSufficientBalance } from '../utils'
@@ -15,7 +15,7 @@ export const ExchangeBox = () => {
   const exchange = async () => {
     try {
       const providerConverted = provider as ethers.providers.Web3Provider
-      const tokenWei = parseInt(tokenAmount) * 1e9
+      const tokenWei = BigNumber.from((parseInt(tokenAmount) * 1e15).toString())
       const contract = new ethers.Contract(contractAddress, GiftCardAbi, provider)
       const tx = await contract.connect(providerConverted.getSigner()).functions.exchange(tokenAmount, { value: tokenWei })
       await tx.wait()

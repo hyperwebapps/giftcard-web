@@ -2,10 +2,30 @@ import { Stack, Box, Fab, Typography } from '@mui/material'
 import EastIcon from '@mui/icons-material/East'
 import React from 'react'
 import { IStoreGiftCard } from '../types'
+import useError from '../../context/error/ErrorContext'
+import useMetamask from '../../context/metamask/MetamaskContext'
+import { Contract, ethers } from 'ethers'
+import { contractAddress, GiftCardAbi } from '../../utils'
 
 export const StoreGiftCard = (props: IStoreGiftCard) => {
+  const { provider, updateTokenBalance } = useMetamask()
+  const { throwError } = useError()
+
+  const buyGiftcard = async () => {
+    try {
+      const providerConverted = provider as ethers.providers.Web3Provider
+      const contract = new Contract(contractAddress, GiftCardAbi, provider)
+      await contract.connect(providerConverted.getSigner()).callStatic.buyCard(props.id)
+      const transaction = await contract.connect(providerConverted.getSigner()).functions.buyCard(props.id)
+      await transaction.wait()
+      updateTokenBalance()
+    } catch (error: any) {
+      throwError(error.errorName || error.message)
+    }
+  }
+
   return (
-    <Box sx={{ mb: { xs: '1.5rem' } }}>
+    <Box sx={{ mb: '1.5rem' }}>
       <Stack
         direction="row"
         justifyContent="flex-end"
@@ -27,7 +47,7 @@ export const StoreGiftCard = (props: IStoreGiftCard) => {
         <Typography sx={{ color: 'white', fontWeight: 'light', fontSize: '1.3rem' }}>${props.price}</Typography>
       </Stack>
       <Stack direction="row" justifyContent="space-between" sx={{ flexWrap: 'wrap', mt: '0.5rem' }}>
-        <Fab variant="extended" size="medium" color="info" sx={{ boxShadow: 1 }}>
+        <Fab variant="extended" size="medium" color="info" sx={{ boxShadow: 1 }} onClick={buyGiftcard}>
           Buy Now
           <EastIcon sx={{ ml: 1 }} />
         </Fab>

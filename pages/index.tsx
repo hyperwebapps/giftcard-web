@@ -6,24 +6,28 @@ import { StoreGiftCard } from '../components/cards/StoreGiftCard'
 const Home: NextPage = () => {
   const giftcardAvailable: IStoreGiftCard[] = [
     {
+      id: 0,
       imageHash: 'QmZjKYG4rhtVzZHnyLRNSVofzYFxvRE2wvex5D9ByZ6SDa',
       text: 'Apple - Email Delivery',
       price: '25',
       isInCart: true
     },
     {
+      id: 1,
       imageHash: 'QmUNnVyuc5KtTzWNhvo9doQEyUgFWR1s68gsrjFvAfU91j',
       text: 'Google Play Gift Code',
       price: '30',
       isInCart: false
     },
     {
+      id: 2,
       imageHash: 'QmUNnVyuc5KtTzWNhvo9doQEyUgFWR1s68gsrjFvAfU91j',
       text: 'Google Play Gift Code',
       price: '10',
       isInCart: false
     },
     {
+      id: 3,
       imageHash: 'QmZjKYG4rhtVzZHnyLRNSVofzYFxvRE2wvex5D9ByZ6SDa',
       text: 'Apple - Email Delivery',
       price: '50',
@@ -36,9 +40,9 @@ const Home: NextPage = () => {
       <DrawerAppBar />
       <Box component="main" sx={{ p: 3 }}>
         <Toolbar />
-        <Stack direction={{ sx: 'column', default: 'row' }} justifyContent="space-evenly" spacing={2} sx={{ flexWrap: 'wrap' }}>
-          {giftcardAvailable.map((item, index) => (
-            <StoreGiftCard {...item} key={index} />
+        <Stack direction="row" justifyContent="space-evenly" sx={{ flexWrap: 'wrap' }}>
+          {giftcardAvailable.map(item => (
+            <StoreGiftCard {...item} key={item.id} />
           ))}
         </Stack>
       </Box>
