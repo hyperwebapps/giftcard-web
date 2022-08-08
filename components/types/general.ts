@@ -1,3 +1,5 @@
+import { IGiftcard } from '../../context'
+
 export interface ICustomError {
   hasError: boolean
   message: string
@@ -8,10 +10,6 @@ export interface IDrawerAppBarLink {
   link: string
 }
 
-export interface IStoreGiftCard {
-  id: number
-  imageHash: string
-  text: string
-  price: string
+export interface IStoreGiftCard extends IGiftcard {
   isInCart: boolean
 }

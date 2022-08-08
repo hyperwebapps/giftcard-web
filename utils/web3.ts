@@ -1,4 +1,5 @@
 import { BigNumber, ethers } from 'ethers'
+import { IChain } from './types'
 
 export const sliceWallet = (wallet: string): string => {
   const startWallet = wallet.slice(0, 6)
@@ -23,11 +24,20 @@ export const isSufficientBalance = (balance: string, tokenAmount: string): boole
   return parseInt(balance) > parseInt(tokenAmount) / 1e15
 }
 
-export const chains = [
+export const chains: IChain[] = [
   {
     chainName: 'AVAX LT Network',
     chainId: convertToHex(43112),
     nativeCurrency: { name: 'AVAX', decimals: 0, symbol: 'AVAX' },
     rpcUrls: ['http://127.0.0.1:9650/ext/bc/C/rpc']
   }
+]
+
+export const cardText: string[] = [
+  'Apple Gift Card - Email Delivery',
+  'Green Mastercard Gift Card',
+  'Google Play Gift Code',
+  'OTTO Brisbane Gift Card',
+  'Roblox Gift Card',
+  'Spotify Gift Card'
 ]
