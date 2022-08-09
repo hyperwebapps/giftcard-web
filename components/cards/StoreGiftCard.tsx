@@ -42,9 +42,9 @@ export const StoreGiftCard = (props: IStoreGiftCard) => {
           {props.isInCart ? '-' : '+'}
         </Fab>
       </Stack>
-      <Stack direction="row" justifyContent="space-between" sx={{ flexWrap: 'wrap', mt: '1rem' }}>
-        <Typography sx={{ color: 'white', fontWeight: '500', fontSize: '1.3rem' }}>{props.text}</Typography>
-        <Typography sx={{ color: 'white', fontWeight: 'light', fontSize: '1.3rem' }}>${props.price}</Typography>
+      <Stack direction="row" justifyContent="space-between" sx={{ flexWrap: 'wrap', mt: '1rem', color: 'white' }}>
+        <Typography sx={{ fontWeight: '500', fontSize: '1.3rem' }}>{props.text}</Typography>
+        <Typography sx={{ fontWeight: 'light', fontSize: '1.3rem' }}>${props.price}</Typography>
       </Stack>
       <Stack direction="row" justifyContent="space-between" sx={{ flexWrap: 'wrap', mt: '0.5rem' }}>
         <Fab variant="extended" size="medium" color="info" sx={{ boxShadow: 1 }} onClick={buyGiftcard}>

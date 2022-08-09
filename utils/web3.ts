@@ -12,8 +12,18 @@ export const convertBalance = (balance: BigNumber): string => {
   return parseFloat(decimalBalance).toFixed(2)
 }
 
+export const convertToNumber = (value: BigNumber): number => {
+  return BigNumber.from(value).toNumber()
+}
+
 export const convertToString = (token: BigNumber): string => {
   return BigNumber.from(token).toString()
+}
+
+export const convertToDate = (timestamp: BigNumber): string => {
+  const timeNumber: number = BigNumber.from(timestamp).toNumber()
+  const localDate: Date = new Date(timeNumber * 1000)
+  return localDate.toLocaleDateString()
 }
 
 export const convertToHex = (chainId: number): string => {

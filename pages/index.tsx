@@ -1,4 +1,4 @@
-import { Stack, Box, Toolbar, Typography } from '@mui/material'
+import { Stack, Box, Toolbar } from '@mui/material'
 import { BigNumber, Contract, ethers } from 'ethers'
 import type { NextPage } from 'next'
 import { useEffect, useState } from 'react'
@@ -38,14 +38,10 @@ const Home: NextPage = () => {
   return (
     <Box>
       <DrawerAppBar />
-      <Box component="main" sx={{ p: 3 }}>
+      <Box component="main" sx={{ p: 3, color: 'white' }}>
         <Toolbar />
         <Stack direction="row" justifyContent="space-evenly" sx={{ flexWrap: 'wrap' }}>
-          {cards.length > 0 ? (
-            cards.map((item, index) => <StoreGiftCard {...item} key={index} />)
-          ) : (
-            <Typography color="white">No cards have been added</Typography>
-          )}
+          {cards.length > 0 ? cards.map((item, index) => <StoreGiftCard {...item} key={index} />) : 'No cards have been added'}
         </Stack>
       </Box>
     </Box>

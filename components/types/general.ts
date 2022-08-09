@@ -13,3 +13,7 @@ export interface IDrawerAppBarLink {
 export interface IStoreGiftCard extends IGiftcard {
   isInCart: boolean
 }
+
+export interface IPurchasedGiftCard extends IGiftcard {
+  timestamp: string
+}
