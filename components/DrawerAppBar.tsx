@@ -5,7 +5,7 @@ import Toolbar from '@mui/material/Toolbar'
 import dinoImage from '../public/dino.png'
 import Image from 'next/image'
 import { WalletButton } from './WalletButton'
-import { Button } from '@mui/material'
+import { Button, Container } from '@mui/material'
 import Link from 'next/link'
 import HideOnScroll from './HideOnScroll'
 import { IDrawerAppBarLink } from './types'
@@ -18,6 +18,10 @@ export const DrawerAppBar = () => {
       link: '/'
     },
     {
+      text: 'purchased',
+      link: '/purchased'
+    },
+    {
       text: 'exchange',
       link: '/exchange'
     }
@@ -27,7 +31,17 @@ export const DrawerAppBar = () => {
     <Box sx={{ display: 'flex', m: '0.5rem' }}>
       <HideOnScroll>
         <AppBar component="nav" elevation={0}>
-          <Toolbar>
+          <Box
+            sx={{
+              mx: 3,
+              justifyContent: 'space-evenly',
+              alignItems: 'center',
+              color: '#ffffff',
+              display: 'flex',
+              height: 64,
+              position: 'relative'
+            }}
+          >
             <Box sx={{ flexGrow: 1, display: 'block' }}>
               <Image width={48} height={48} src={dinoImage} alt="no icon" />
             </Box>
@@ -42,7 +56,7 @@ export const DrawerAppBar = () => {
             </Box>
             <CustomizedBadge />
             <WalletButton />
-          </Toolbar>
+          </Box>
         </AppBar>
       </HideOnScroll>
     </Box>
