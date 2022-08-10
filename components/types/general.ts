@@ -1,3 +1,4 @@
+import { BigNumber } from 'ethers'
 import { IGiftcard } from '../../context'
 
 export interface ICustomError {
@@ -16,4 +17,15 @@ export interface IStoreGiftCard extends IGiftcard {
 
 export interface IPurchasedGiftCard extends IGiftcard {
   timestamp: string
+}
+
+export interface IBlockchainGiftCard {
+  imageHash: string
+  price: BigNumber
+  store: number
+}
+
+export interface IBlockchainUserCards {
+  cardId: BigNumber
+  timestamp: BigNumber
 }

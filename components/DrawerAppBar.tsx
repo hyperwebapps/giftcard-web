@@ -34,10 +34,10 @@ export const DrawerAppBar = () => {
           <Box
             sx={{
               mx: 3,
+              display: 'flex',
               justifyContent: 'space-evenly',
               alignItems: 'center',
               color: '#ffffff',
-              display: 'flex',
               height: 64,
               position: 'relative'
             }}

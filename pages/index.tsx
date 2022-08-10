@@ -2,7 +2,7 @@ import { Stack, Box, Toolbar } from '@mui/material'
 import { BigNumber, Contract, ethers } from 'ethers'
 import type { NextPage } from 'next'
 import { useEffect, useState } from 'react'
-import { DrawerAppBar, IStoreGiftCard } from '../components'
+import { DrawerAppBar, IBlockchainGiftCard, IStoreGiftCard } from '../components'
 import { StoreGiftCard } from '../components/cards/StoreGiftCard'
 import { cardText, contractAddress, GiftCardAbi } from '../utils'
 
@@ -18,13 +18,13 @@ const Home: NextPage = () => {
       if (cardSize > 0) {
         let cardArray = []
         for (let i = 0; i < cardSize; i++) {
-          const card = await contract.cards(i)
+          const card: IBlockchainGiftCard = await contract.cards(i)
           const updatedCards = {
             id: i,
             imageHash: card.imageHash,
-            price: BigNumber.from(card.price).toString(),
+            price: card.price.toString(),
             text: cardText[card.store],
-            isInCart: BigNumber.from(card.price).toNumber() > 30
+            isInCart: card.price.toNumber() > 30
           }
           cardArray.push(updatedCards)
         }

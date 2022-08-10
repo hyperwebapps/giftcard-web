@@ -96,7 +96,7 @@ export const ExchangeBox = () => {
         onClick={() => exchange()}
         disabled={!connected || !isSufficientBalance(balance, tokenAmount)}
       >
-        {connected ? (isSufficientBalance(balance, tokenAmount) ? 'Exchange' : 'Insufficient Balance') : 'Connect Wallet'}
+        {connected ? (isSufficientBalance(balance, tokenAmount) ? 'Exchange' : 'Invalid import') : 'Connect Wallet'}
       </Stack>
     </Stack>
   )

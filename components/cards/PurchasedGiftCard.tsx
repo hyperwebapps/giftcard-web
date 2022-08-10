@@ -17,9 +17,13 @@ export const PurchasedGiftCard = (props: IPurchasedGiftCard) => {
           resize: 'both'
         }}
       />
-      <Stack direction="row" justifyContent="space-between" sx={{ flexWrap: 'wrap', mt: '1rem' }}>
-        <Typography sx={{ color: 'white', fontWeight: '500', fontSize: '1.3rem' }}>{props.timestamp}</Typography>
-        <Typography sx={{ color: 'white', fontWeight: 'light', fontSize: '1.3rem' }}>${props.price}</Typography>
+      <Stack direction="row" justifyContent="space-between" sx={{ flexWrap: 'wrap', mt: '1rem', color: 'white' }}>
+        <Typography sx={{ fontWeight: '500', fontSize: '1.3rem' }}>Micheal Jacson</Typography>
+        <Typography sx={{ fontWeight: 'light', fontSize: '1.3rem' }}>michealj@gmail.com</Typography>
+      </Stack>
+      <Stack direction="row" justifyContent="space-between" sx={{ flexWrap: 'wrap', mt: '1rem', color: 'white' }}>
+        <Typography sx={{ fontWeight: '500', fontSize: '1.3rem' }}>{props.timestamp}</Typography>
+        <Typography sx={{ fontWeight: 'light', fontSize: '1.3rem' }}>${props.price}</Typography>
       </Stack>
     </Box>
   )

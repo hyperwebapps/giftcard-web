@@ -21,8 +21,7 @@ export const convertToString = (token: BigNumber): string => {
 }
 
 export const convertToDate = (timestamp: BigNumber): string => {
-  const timeNumber: number = BigNumber.from(timestamp).toNumber()
-  const localDate: Date = new Date(timeNumber * 1000)
+  const localDate: Date = new Date(timestamp.toNumber() * 1000)
   return localDate.toLocaleDateString()
 }
 
