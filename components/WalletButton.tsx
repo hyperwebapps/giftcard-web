@@ -8,12 +8,18 @@ export const WalletButton = () => {
   const { disconnect, connect, connected, balance, account, updateTokenBalance } = useMetamask()
 
   useEffect(() => {
-    if (connected) updateTokenBalance()
+    if (connected) {
+      if (updateTokenBalance !== undefined) {
+        updateTokenBalance()
+      } else {
+        throwError('Something went wrong with balance update')
+      }
+    }
   }, [connected])
 
   const handleClick = async () => {
     try {
-      connect()
+      if (connect !== undefined) connect()
     } catch (error: any) {
       throwError(error.message)
     }
@@ -40,7 +46,13 @@ export const WalletButton = () => {
             borderRadius: 3.5,
             cursor: 'pointer'
           }}
-          onClick={() => (connected ? disconnect() : handleClick())}
+          onClick={() => {
+            if (disconnect !== undefined) {
+              connected ? disconnect() : handleClick()
+            } else {
+              throwError('Something went wrong with disconnection')
+            }
+          }}
         >
           {connected ? account : 'Connect Wallet'}
         </Box>

@@ -1,4 +1,4 @@
-import { IMetamaskReducerState } from '../types'
+import { IMetamaskReducerState, MetamaskAction, MetamaskActionType } from '../types'
 
 export const initialState: IMetamaskReducerState = {
   account: '',
@@ -16,11 +16,11 @@ export const initialState: IMetamaskReducerState = {
   }
 }
 
-const metamaskReducer = (state: any, action: any) => {
+const metamaskReducer = (state: IMetamaskReducerState, action: MetamaskAction): IMetamaskReducerState => {
   const { type, payload } = action
 
   switch (type) {
-    case 'CONNECT_ACCOUNT':
+    case MetamaskActionType.CONNECT_ACCOUNT:
       return {
         ...state,
         provider: payload.provider,
@@ -30,7 +30,7 @@ const metamaskReducer = (state: any, action: any) => {
         connected: payload.connected
       }
 
-    case 'DISCONNECT_ACCOUNT':
+    case MetamaskActionType.DISCONNECT_ACCOUNT:
       return {
         ...state,
         provider: payload.provider,
@@ -40,7 +40,7 @@ const metamaskReducer = (state: any, action: any) => {
         connected: payload.connected
       }
 
-    case 'UPDATE_TOKEN_BALANCE':
+    case MetamaskActionType.UPDATE_TOKEN_BALANCE:
       return {
         ...state,
         token: payload.token

@@ -19,7 +19,7 @@ export const ExchangeBox = () => {
       const contract = new ethers.Contract(contractAddress, GiftCardAbi, provider)
       const tx = await contract.connect(providerConverted.getSigner()).functions.exchange(tokenAmount, { value: tokenWei })
       await tx.wait()
-      updateTokenBalance()
+      if (updateTokenBalance !== undefined) updateTokenBalance()
     } catch (error: any) {
       throwError(error.message)
     }
@@ -94,9 +94,9 @@ export const ExchangeBox = () => {
           cursor: 'pointer'
         }}
         onClick={() => exchange()}
-        disabled={!connected || !isSufficientBalance(balance, tokenAmount)}
+        disabled={!connected || !isSufficientBalance(balance as string, tokenAmount)}
       >
-        {connected ? (isSufficientBalance(balance, tokenAmount) ? 'Exchange' : 'Invalid import') : 'Connect Wallet'}
+        {connected ? (isSufficientBalance(balance as string, tokenAmount) ? 'Exchange' : 'Invalid import') : 'Connect Wallet'}
       </Stack>
     </Stack>
   )

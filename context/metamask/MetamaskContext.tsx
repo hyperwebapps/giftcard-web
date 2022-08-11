@@ -5,7 +5,7 @@ import { chains, convertBalance, convertToHex, convertToString, sliceWallet } fr
 import metamaskReducer, { initialState } from './metamaskReducer'
 import { GiftCardAbi } from '../../utils'
 import useError from '../error/ErrorContext'
-import { ProviderRpcError } from '../types'
+import { MetamaskActionType, ProviderRpcError } from '../types'
 
 const MetamaskContext = createContext(initialState)
 
@@ -47,7 +47,7 @@ export const MetamaskProvider = ({ children }: any) => {
       const convertedBalance = convertBalance(addressBalance)
 
       dispatch({
-        type: 'CONNECT_ACCOUNT',
+        type: MetamaskActionType.CONNECT_ACCOUNT,
         payload: {
           provider: provider,
           account: slicedAccount,
@@ -64,11 +64,11 @@ export const MetamaskProvider = ({ children }: any) => {
   const updateTokenBalance = async () => {
     try {
       const contract = new ethers.Contract(contractAddress, GiftCardAbi, state.provider)
-      await contract.callStatic.balanceOf(state.provider.getSigner().getAddress())
-      const tokenBalance = await contract.balanceOf(state.provider.getSigner().getAddress())
+      await contract.callStatic.balanceOf(state.provider?.getSigner().getAddress())
+      const tokenBalance = await contract.balanceOf(state.provider?.getSigner().getAddress())
 
       dispatch({
-        type: 'UPDATE_TOKEN_BALANCE',
+        type: MetamaskActionType.UPDATE_TOKEN_BALANCE,
         payload: {
           token: convertToString(tokenBalance)
         }
@@ -84,9 +84,9 @@ export const MetamaskProvider = ({ children }: any) => {
     })
 
     dispatch({
-      type: 'DISCONNECT_ACCOUNT',
+      type: MetamaskActionType.DISCONNECT_ACCOUNT,
       payload: {
-        provider: null,
+        provider: undefined,
         account: '0x',
         balance: '0',
         token: '0',
