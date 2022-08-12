@@ -1,15 +1,13 @@
 import * as React from 'react'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
-import Toolbar from '@mui/material/Toolbar'
 import dinoImage from '../public/dino.png'
 import Image from 'next/image'
 import { WalletButton } from './WalletButton'
-import { Button, Container } from '@mui/material'
+import { Button } from '@mui/material'
 import Link from 'next/link'
 import HideOnScroll from './HideOnScroll'
 import { IDrawerAppBarLink } from './types'
-import CustomizedBadge from './CustomizedBadge'
 
 export const DrawerAppBar = () => {
   const textButton: IDrawerAppBarLink[] = [
@@ -54,7 +52,7 @@ export const DrawerAppBar = () => {
                 </Link>
               ))}
             </Box>
-            <CustomizedBadge />
+            {/* <CustomizedBadge /> */}
             <WalletButton />
           </Box>
         </AppBar>

@@ -1,43 +1,49 @@
-import { Stack, Box, Toolbar, Typography } from '@mui/material'
-import { ethers, Contract, BigNumber } from 'ethers'
+import { Stack, Box, Toolbar } from '@mui/material'
+import { Contract } from 'ethers'
 import type { NextPage } from 'next'
 import { useState, useEffect } from 'react'
-import { DrawerAppBar, IBlockchainGiftCard, IBlockchainUserCards, IPurchasedGiftCard } from '../components'
+import { DrawerAppBar, IBlockchainGiftCard, IPurchasedGiftCard } from '../components'
 import { PurchasedGiftCard } from '../components/cards/PurchasedGiftCard'
 import useMetamask from '../context/metamask/MetamaskContext'
+import { getUserCards } from '../http'
 import { contractAddress, GiftCardAbi, cardText, convertToDate } from '../utils'
 
 const Exchange: NextPage = () => {
-  const { connected } = useMetamask()
+  const { connected, provider } = useMetamask()
 
   const [cards, setCards] = useState<IPurchasedGiftCard[]>([])
 
   useEffect(() => {
     const getCards = async () => {
-      const provider = new ethers.providers.Web3Provider(window.ethereum)
-      const contract = new Contract(contractAddress, GiftCardAbi, provider)
-      const userCards: IBlockchainUserCards[] = await contract.connect(provider.getSigner()).getUserCards()
+      if (provider !== undefined) {
+        const contract = new Contract(contractAddress, GiftCardAbi, provider)
+        const userCards = await getUserCards(await provider.getSigner().getAddress())
 
-      if (userCards.length > 0) {
-        let cardArray = []
-        for (let i = 0; i < userCards.length; i++) {
-          const { cardId, timestamp } = userCards[i]
-          const card: IBlockchainGiftCard = await contract.cards(cardId.toNumber())
-          const updatedCards = {
-            id: cardId.toNumber(),
-            imageHash: card.imageHash,
-            price: card.price.toString(),
-            text: cardText[card.store],
-            timestamp: convertToDate(timestamp)
+        if (userCards.length > 0) {
+          let cardArray = []
+          for (let i = 0; i < userCards.length; i++) {
+            const {
+              code,
+              card: { id, timestamp }
+            } = userCards[i]
+            const giftcard: IBlockchainGiftCard = await contract.cards(id)
+            const updatedCards = {
+              id,
+              code,
+              imageHash: giftcard.imageHash,
+              price: giftcard.price.toString(),
+              text: cardText[giftcard.store],
+              timestamp: convertToDate(timestamp)
+            }
+            cardArray.push(updatedCards)
           }
-          cardArray.push(updatedCards)
+          setCards(cardArray)
         }
-        setCards(cardArray)
       }
     }
 
     getCards()
-  }, [])
+  }, [provider])
 
   return (
     <Box>

@@ -1,25 +1,17 @@
 import { Stack, Box } from '@mui/material'
-import React, { useEffect } from 'react'
+import React from 'react'
 import useMetamask from '../context/metamask/MetamaskContext'
 import useError from '../context/error/ErrorContext'
 
 export const WalletButton = () => {
   const { throwError } = useError()
-  const { disconnect, connect, connected, balance, account, updateTokenBalance } = useMetamask()
-
-  useEffect(() => {
-    if (connected) {
-      if (updateTokenBalance !== undefined) {
-        updateTokenBalance()
-      } else {
-        throwError('Something went wrong with balance update')
-      }
-    }
-  }, [connected])
+  const { disconnect, connect, connected, balance, account } = useMetamask()
 
   const handleClick = async () => {
     try {
-      if (connect !== undefined) connect()
+      if (connect !== undefined) {
+        connect()
+      }
     } catch (error: any) {
       throwError(error.message)
     }

@@ -1,6 +1,6 @@
 import { Box, Stack } from '@mui/material'
 import { BigNumber, ethers } from 'ethers'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import useMetamask from '../context/metamask/MetamaskContext'
 import { contractAddress, isSufficientBalance } from '../utils'
 import { GiftCardAbi } from '../utils'
@@ -11,6 +11,12 @@ export const ExchangeBox = () => {
   const { connected, balance, updateTokenBalance, token, provider } = useMetamask()
   const [codes] = useState([8, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57])
   const [tokenAmount, setTokenAmount] = useState('')
+
+  useEffect(() => {
+    if (updateTokenBalance !== undefined && connected) {
+      updateTokenBalance()
+    }
+  }, [connected, updateTokenBalance])
 
   const exchange = async () => {
     try {

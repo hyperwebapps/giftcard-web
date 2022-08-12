@@ -17,6 +17,7 @@ export interface IStoreGiftCard extends IGiftcard {
 
 export interface IPurchasedGiftCard extends IGiftcard {
   timestamp: string
+  code: string
 }
 
 export interface IBlockchainGiftCard {

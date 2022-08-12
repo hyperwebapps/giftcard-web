@@ -4,21 +4,23 @@ import React from 'react'
 import { IStoreGiftCard } from '../types'
 import useError from '../../context/error/ErrorContext'
 import useMetamask from '../../context/metamask/MetamaskContext'
-import { Contract, ethers } from 'ethers'
+import { Contract } from 'ethers'
 import { contractAddress, GiftCardAbi } from '../../utils'
+import { addGiftCardCode } from '../../http'
 
 export const StoreGiftCard = (props: IStoreGiftCard) => {
-  const { provider, updateTokenBalance } = useMetamask()
+  const { provider } = useMetamask()
   const { throwError } = useError()
 
   const buyGiftcard = async () => {
     try {
-      const providerConverted = provider as ethers.providers.Web3Provider
-      const contract = new Contract(contractAddress, GiftCardAbi, provider)
-      await contract.connect(providerConverted.getSigner()).callStatic.buyCard(props.id)
-      const transaction = await contract.connect(providerConverted.getSigner()).functions.buyCard(props.id)
-      await transaction.wait()
-      updateTokenBalance()
+      if (provider !== undefined) {
+        const contract = new Contract(contractAddress, GiftCardAbi, provider)
+        await contract.connect(provider.getSigner()).callStatic.buyCard(props.id)
+        const transaction = await contract.connect(provider.getSigner()).functions.buyCard(props.id)
+        await transaction.wait()
+        await addGiftCardCode(await provider.getSigner().getAddress(), props.id)
+      }
     } catch (error: any) {
       throwError(error.errorName || error.message)
     }
@@ -37,11 +39,7 @@ export const StoreGiftCard = (props: IStoreGiftCard) => {
           borderRadius: '1.3rem',
           resize: 'both'
         }}
-      >
-        <Fab variant="extended" size="small" color={props.isInCart ? 'error' : 'success'} sx={{ m: 1, boxShadow: 1 }}>
-          {props.isInCart ? '-' : '+'}
-        </Fab>
-      </Stack>
+      />
       <Stack direction="row" justifyContent="space-between" sx={{ flexWrap: 'wrap', mt: '1rem', color: 'white' }}>
         <Typography sx={{ fontWeight: '500', fontSize: '1.3rem' }}>{props.text}</Typography>
         <Typography sx={{ fontWeight: 'light', fontSize: '1.3rem' }}>${props.price}</Typography>
