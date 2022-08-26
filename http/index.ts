@@ -23,6 +23,6 @@ export const addGiftCardCode = async (publicKey: string, cardId: number): Promis
 }
 
 export const getUserCards = async (publicKey: string): Promise<IGiftCardCode[]> => {
-  const giftcards = await instance.get(`/giftcards?key=${publicKey}`)
+  const giftcards = await instance.get(`/giftcards?wallet=${publicKey}`)
   return giftcards.data as IGiftCardCode[]
 }

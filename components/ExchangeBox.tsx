@@ -80,7 +80,7 @@ export const ExchangeBox = () => {
           value={tokenAmount}
           placeholder="0.0"
         />
-        <Box sx={{ m: '0.6rem 1.5rem' }}>Token: {token}</Box>
+        <Box sx={{ m: '0.6rem 1.5rem' }}>Token: {connected ? token : '0'}</Box>
       </Stack>
       <Stack
         component="button"
